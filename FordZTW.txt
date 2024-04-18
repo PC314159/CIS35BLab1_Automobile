@@ -1,0 +1,66 @@
+FordZTW
+1844500
+
+Configuration Options Amount
+5
+
+
+Color
+9
+
+Fort Knox Gold Clearcoat Metallic
+0
+Liquid Grey Clearcoat Metallic
+0
+Infra-Red Clearcoat
+0
+Grabber Green Clearcoat
+0
+Metallic
+0
+Sangria Red Clearcoat Metallic
+0
+French Blue Clearcoat Metallic
+0
+Twilight Blue Clearcoat Metallic
+0
+CD Silver Clearcoat
+0
+
+
+Transmission
+2
+
+Automatic
+0
+Standard
+-81500
+
+
+Brakes / Traction Control
+3
+
+Standard
+0
+ABS
+40000
+ABS with Advance Trac
+162500
+
+
+Side Impact Airbags
+2
+
+None
+0
+Selected
+35000
+
+
+Power Moonroof
+2
+
+None
+0
+Selected
+59500
