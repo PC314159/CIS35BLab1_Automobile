@@ -3,8 +3,11 @@ package util;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import exception.AutoException;
 import model.Automobile;
 import model.OptionSet;
 
@@ -14,6 +17,18 @@ public class AutomobileFileReader {
             FileReader file = new FileReader(filePath);
             BufferedReader buff = new BufferedReader(file);
             String autoName = buff.readLine();
+            try {
+                if (autoName.isEmpty()) {
+                    throw new AutoException(1, "Empty auto name");
+                }
+            }
+            catch (AutoException ex) {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Missing auto name, please enter one");
+                String inputName = sc.nextLine();
+                sc.close();
+                autoName = inputName;
+            }
             int basePrice = Integer.parseInt(buff.readLine());
             buff.readLine();
             buff.readLine();
@@ -31,15 +46,15 @@ public class AutomobileFileReader {
                 for(int j = 0; j < optionsAmount; ++j) {
                     String optName = buff.readLine();
                     int optPrice = Integer.parseInt(buff.readLine());
-                    options.setOption(j, optName, optPrice);
+                    auto.setOption(options, j, optName, optPrice);
                 }
 
                 auto.setOptionSet(i, options);
             }
 
             return auto;
-        } catch (NumberFormatException | NullPointerException | IOException var15) {
-            Logger.getAnonymousLogger().log(Level.WARNING, var15.toString());
+        } catch (NumberFormatException | NullPointerException | IOException ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, ex.toString());
             System.exit(1);
             return null;
         }

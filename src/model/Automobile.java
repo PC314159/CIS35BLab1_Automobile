@@ -26,7 +26,7 @@ public class Automobile implements Serializable {
         return optset;
     }
 
-    public OptionSet getOptset(int i) {
+    public OptionSet getOptions(int i) {
         return optset[i];
     }
 
@@ -46,6 +46,9 @@ public class Automobile implements Serializable {
         this.optset[i] = options;
     }
 
+    public void setOption(OptionSet options, int index, String name, int price) {
+        options.setOption(index, name, price);
+    }
     public int findOptionSet(String optionSetName) {
         for(int i = 0; i < optset.length; i++) {
             if (optset[i].getName().equals(optionSetName)) {
@@ -84,11 +87,22 @@ public class Automobile implements Serializable {
 
     }
 
-    public void updateOption(String optionName, int price) {
+    public void updateOptionsName(String optionsName, String newName) {
         for (OptionSet options : optset) {
-            options.updateOption(optionName, price);
+            if (options.getName().equals(optionsName)) {
+                options.setName(newName);
+                break;
+            }
         }
+    }
 
+    public void updateOptionPrice(String optionsName, String optionName, int price) {
+        for (OptionSet options : optset) {
+            if (options.getName().equals(optionsName)) {
+                options.updateOption(optionName, price);
+                break;
+            }
+        }
     }
 
     public String toString() {

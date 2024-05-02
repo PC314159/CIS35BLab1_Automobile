@@ -1,4 +1,4 @@
-FordZTW
+
 1844500
 
 Configuration Options Amount

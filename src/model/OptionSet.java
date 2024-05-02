@@ -12,27 +12,27 @@ public class OptionSet implements Serializable {
         this.options = new Option[size];
     }
 
-    public String getName() {
+    protected String getName() {
         return name;
     }
 
-    public String getOptionName(int i) {
+    protected String getOptionName(int i) {
         return options[i].getName();
     }
 
-    public int getOptionPrice(int i) {
+    protected int getOptionPrice(int i) {
         return options[i].getPrice();
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 
-    public void setOption(int i, String name, int price) {
+    protected void setOption(int i, String name, int price) {
         options[i] = new Option(name, price);
     }
 
-    public int findOption(String name) {
+    protected int findOption(String name) {
         for(int i = 0; i < options.length; ++i) {
             if (options[i].getName().equals(name)) {
                 return i;
@@ -42,7 +42,7 @@ public class OptionSet implements Serializable {
         return -1;
     }
 
-    public void delOption(String name) {
+    protected void delOption(String name) {
         for(int i = 0; i < options.length; ++i) {
             if (options[i].getName().equals(name)) {
                 options[i] = null;
@@ -52,7 +52,7 @@ public class OptionSet implements Serializable {
 
     }
 
-    public void updateOption(String name, int price) {
+    protected void updateOption(String name, int price) {
         for(int i = 0; i < this.options.length; ++i) {
             if (options[i].getName().equals(name)) {
                 options[i] = new Option(name, price);
@@ -75,19 +75,19 @@ public class OptionSet implements Serializable {
             this.price = price;
         }
 
-        public String getName() {
+        protected String getName() {
             return name;
         }
 
-        public int getPrice() {
+        protected int getPrice() {
             return price;
         }
 
-        public void setName(String name) {
+        protected void setName(String name) {
             this.name = name;
         }
 
-        public void setPrice(int price) {
+        protected void setPrice(int price) {
             this.price = price;
         }
 
