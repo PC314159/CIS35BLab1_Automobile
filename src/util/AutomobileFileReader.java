@@ -21,35 +21,34 @@ public class AutomobileFileReader {
                 if (autoName.isEmpty()) {
                     throw new AutoException(1, "Empty auto name");
                 }
-            }
-            catch (AutoException ex) {
+            } catch (AutoException ex) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Missing auto name, please enter one");
                 String inputName = sc.nextLine();
                 sc.close();
                 autoName = inputName;
             }
+            String autoMake = buff.readLine();
+            String autoModel = buff.readLine();
             int basePrice = Integer.parseInt(buff.readLine());
             buff.readLine();
             buff.readLine();
             int configAmount = Integer.parseInt(buff.readLine());
-            Automobile auto = new Automobile(autoName, basePrice, new OptionSet[configAmount]);
+            Automobile auto = new Automobile(autoName, autoMake, autoModel, basePrice);
 
-            for(int i = 0; i < configAmount; ++i) {
+            for (int i = 0; i < configAmount; ++i) {
                 buff.readLine();
                 buff.readLine();
                 String optionsName = buff.readLine();
+                auto.addOptions(optionsName);
                 int optionsAmount = Integer.parseInt(buff.readLine());
-                OptionSet options = new OptionSet(optionsName, optionsAmount);
                 buff.readLine();
 
-                for(int j = 0; j < optionsAmount; ++j) {
+                for (int j = 0; j < optionsAmount; ++j) {
                     String optName = buff.readLine();
                     int optPrice = Integer.parseInt(buff.readLine());
-                    auto.setOption(options, j, optName, optPrice);
+                    auto.addOption(optionsName, optName, optPrice);
                 }
-
-                auto.setOptionSet(i, options);
             }
 
             return auto;

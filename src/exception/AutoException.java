@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AutoException extends Exception implements FixAuto{
+public class AutoException extends Exception {
     private int errno;
     private String msg;
 
