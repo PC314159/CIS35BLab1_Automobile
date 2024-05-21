@@ -108,8 +108,24 @@ public class OptionSet implements Serializable {
         return null;
     }
 
-    public String toString() {
-        return "OptionSet{name='" + name + "', options=" + options + "}";
+    protected void print() {
+        StringBuffer sb1 = new StringBuffer();
+        sb1.append("--------------------");
+        sb1.append("OptionSet:\n");
+        sb1.append("Name:\n");
+        sb1.append(this.name+"\n\n");
+        sb1.append("Choice:");
+        System.out.println(sb1.toString());
+        if (getChoice() != null) {
+            getChoice().print();
+        }
+        else {
+            System.out.println("Empty\n");
+        }
+        System.out.println("Options:");
+        for (Option option : this.options) {
+            option.print();
+        }
     }
 
     class Option implements Serializable {
@@ -137,8 +153,15 @@ public class OptionSet implements Serializable {
             this.price = price;
         }
 
-        public String toString() {
-            return "Option{name='" + name + "', price=" + price + "}";
+        protected void print() {
+            StringBuffer sb = new StringBuffer();
+            sb.append("----------");
+            sb.append("Option:\n");
+            sb.append("Name:\n");
+            sb.append(this.name+"\n\n");
+            sb.append("Price:\n");
+            sb.append(this.price+"\n\n");
+            System.out.print(sb.toString());
         }
     }
 }

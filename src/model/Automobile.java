@@ -21,55 +21,55 @@ public class Automobile implements Serializable {
         this. choices = new ArrayList<OptionSet.Option>();
     }
 
-    public String getName() {
+    public synchronized String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public synchronized void setName(String name) {
         this.name = name;
     }
 
-    public String getMake() {
+    public synchronized String getMake() {
         return make;
     }
 
-    public void setMake(String make) {
+    public synchronized void setMake(String make) {
         this.make = make;
     }
 
-    public String getModel() {
+    public synchronized String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
+    public synchronized void setModel(String model) {
         this.model = model;
     }
 
-    public int getBasePrice() {
+    public synchronized int getBasePrice() {
         return basePrice;
     }
 
-    public void setBasePrice(int basePrice) {
+    public synchronized void setBasePrice(int basePrice) {
         this.basePrice = basePrice;
     }
 
-    public ArrayList<OptionSet> getOptset() {
+    public synchronized ArrayList<OptionSet> getOptset() {
         return optset;
     }
 
-    public void setOptset(ArrayList<OptionSet> optset) {
+    public synchronized void setOptset(ArrayList<OptionSet> optset) {
         this.optset = optset;
     }
 
-    public void setOptions(int i, String optionsName) {
+    public synchronized void setOptions(int i, String optionsName) {
         optset.set(i, new OptionSet(optionsName));
     }
 
-    public void addOptions(String optionsName) {
+    public synchronized void addOptions(String optionsName) {
         optset.add(new OptionSet(optionsName));
     }
 
-    public int findOptions(String optionSetName) {
+    public synchronized int findOptions(String optionSetName) {
         for (int i = 0; i < optset.size(); i++) {
             if (optset.get(i).getName().equals(optionSetName)) {
                 return i;
@@ -79,7 +79,7 @@ public class Automobile implements Serializable {
         return -1;
     }
 
-    public void delOptions(String optionSetName) {
+    public synchronized void delOptions(String optionSetName) {
         for (int i = 0; i < optset.size(); i++) {
             if (optset.get(i).getName().equals(optionSetName)) {
                 optset.remove(i);
@@ -88,7 +88,7 @@ public class Automobile implements Serializable {
         }
     }
 
-    public void updateOptionsName(String optionsName, String newName) {
+    public synchronized void updateOptionsName(String optionsName, String newName) {
         for (OptionSet options : optset) {
             if (options.getName().equals(optionsName)) {
                 options.setName(newName);
@@ -97,7 +97,7 @@ public class Automobile implements Serializable {
         }
     }
 
-    public void setOption(String optionsName, int index, String name, int price) {
+    public synchronized void setOption(String optionsName, int index, String name, int price) {
         for (OptionSet options : optset) {
             if (options.getName().equals(optionsName)) {
                 options.setOption(index, name, price);
@@ -107,7 +107,7 @@ public class Automobile implements Serializable {
         }
     }
 
-    public void addOption(String optionsName, String name, int price) {
+    public synchronized void addOption(String optionsName, String name, int price) {
         for (OptionSet options : optset) {
             if (options.getName().equals(optionsName)) {
                 options.addOption(name, price);
@@ -117,7 +117,7 @@ public class Automobile implements Serializable {
         }
     }
 
-    public int findOption(String optionsName, String optionName) {
+    public synchronized int findOption(String optionsName, String optionName) {
         for (OptionSet options : optset) {
             if (options.getName().equals(optionsName)) {
                 return options.findOption(optionName);
@@ -126,7 +126,7 @@ public class Automobile implements Serializable {
         return -1;
     }
 
-    public void delOption(String optionsName, String optionName) {
+    public synchronized void delOption(String optionsName, String optionName) {
         for (OptionSet options : optset) {
             if (options.getName().equals(optionsName)) {
                 options.delOption(optionName);
@@ -135,7 +135,7 @@ public class Automobile implements Serializable {
         }
     }
 
-    public void updateOptionName(String optionsName, String optionName, String newName) {
+    public synchronized void updateOptionName(String optionsName, String optionName, String newName) {
         for (OptionSet options : optset) {
             if (options.getName().equals(optionsName)) {
                 options.updateOptionName(optionName, newName);
@@ -144,7 +144,7 @@ public class Automobile implements Serializable {
         }
     }
 
-    public void updateOptionPrice(String optionsName, String optionName, int price) {
+    public synchronized void updateOptionPrice(String optionsName, String optionName, int price) {
         for (OptionSet options : optset) {
             if (options.getName().equals(optionsName)) {
                 options.updateOptionPrice(optionName, price);
@@ -153,7 +153,7 @@ public class Automobile implements Serializable {
         }
     }
 
-    public String getOptionChoiceName(String optionsName) {
+    public synchronized String getOptionChoiceName(String optionsName) {
         for (OptionSet options : optset) {
             if (options.getName().equals(optionsName)) {
                 return options.getChoiceName();
@@ -162,7 +162,7 @@ public class Automobile implements Serializable {
         return "";
     }
 
-    public int getOptionChoicePrice(String optionsName) {
+    public synchronized int getOptionChoicePrice(String optionsName) {
         for (OptionSet options : optset) {
             if (options.getName().equals(optionsName)) {
                 return options.getChoicePrice();
@@ -171,7 +171,7 @@ public class Automobile implements Serializable {
         return 0;
     }
 
-    public void setOptionChoice(String optionsName, String optionName) {
+    public synchronized void setOptionChoice(String optionsName, String optionName) {
         for (OptionSet options : optset) {
             if (options.getName().equals(optionsName)) {
                 OptionSet.Option oldChoice = options.getChoice();
@@ -182,7 +182,7 @@ public class Automobile implements Serializable {
         }
     }
 
-    public int getTotalPrice(){
+    public synchronized int getTotalPrice(){
         int total = basePrice;
         for (OptionSet.Option choice: choices) {
             total += choice.getPrice();
@@ -190,15 +190,33 @@ public class Automobile implements Serializable {
         return total;
     }
 
-    @Override
-    public String toString() {
-        return "Automobile{" +
-                "make='" + make + '\'' +
-                ", model='" + model + '\'' +
-                ", basePrice=" + basePrice +
-                ", optset=" + optset +
-                ", choices=" + choices +
-                ", totalPrice=" + getTotalPrice() +
-                '}';
+    public void print() {
+        StringBuffer sb1 = new StringBuffer();
+        sb1.append("------------------------------");
+        sb1.append("Automobile:\n");
+        sb1.append("Name:\n");
+        sb1.append(this.name+"\n\n");
+        sb1.append("Make:\n");
+        sb1.append(this.make+"\n\n");
+        sb1.append("Model:\n");
+        sb1.append(this.model+"\n\n");
+        sb1.append("TotalPrice:\n");
+        sb1.append(getTotalPrice()+"\n\n");
+        sb1.append("BasePrice:\n");
+        sb1.append(this.basePrice+"\n\n");
+        sb1.append("Choices:");
+        System.out.println(sb1.toString());
+        if (choices.isEmpty()) {
+            System.out.print("Empty");
+        }
+        else {
+            for (OptionSet.Option op : choices) {
+                op.print();
+            }
+        }
+        System.out.println("\nOptionSet:");
+        for (OptionSet options: optset) {
+            options.print();
+        }
     }
 }
