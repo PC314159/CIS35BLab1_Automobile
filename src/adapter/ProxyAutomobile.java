@@ -2,6 +2,7 @@ package adapter;
 
 import model.Automobile;
 import util.AutomobileFileReader;
+import util.FileIO;
 
 import java.util.LinkedHashMap;
 
@@ -16,6 +17,13 @@ public abstract class ProxyAutomobile {
         AutomobileFileReader afr = new AutomobileFileReader();
         Automobile a1 = afr.createAutomobileFromFile(filename);
         automobileLinkedHashMap.put(a1.getName(), a1);
+    }
+
+    public synchronized void BuildAuto(String filename, String fileType) {
+        if (fileType.equals("properties")) {
+            Automobile a1 = new FileIO().parsePropertiesFile(filename);
+            automobileLinkedHashMap.put(a1.getName(), a1);
+        }
     }
 
     public synchronized void printAuto(String modelName) {
