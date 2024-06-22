@@ -78,6 +78,13 @@ public class OptionSet implements Serializable {
         }
     }
 
+    protected ArrayList<String> getOptionNames() {
+        ArrayList<String> names = new ArrayList<String>();
+        for (Option option : this.options) {
+            names.add(option.getName());
+        }
+        return names;
+    }
     protected Option getChoice() {
         if (choice >= 0 && choice < options.size()) {
             return options.get(choice);

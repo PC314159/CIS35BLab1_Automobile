@@ -36,8 +36,8 @@ public class Driver {
 //        System.out.println("Print all auto");
 //        printAllAuto(ba);
 
-        Thread t1 = new EditOptions(ProxyAutomobile.getHashMap(),"LexusRx400", "Color", "Fort Knox Gold Clearcoat Metallic", 1000);
-        Thread t2 = new EditOptions(ProxyAutomobile.getHashMap(),"LexusRx400", "Color", "Fort Knox Gold Clearcoat Metallic", 2000);;
+        Thread t1 = new EditOptions(ba,"LexusRx400", "Color", "Fort Knox Gold Clearcoat Metallic", 1000);
+        Thread t2 = new EditOptions(ba,"LexusRx400", "Color", "Fort Knox Gold Clearcoat Metallic", 2000);;
         t1.start();
         t2.start();
         try {
@@ -71,6 +71,7 @@ public class Driver {
     public static void updateChoice(UpdateAuto ua, String modelName, String optionsName, String optionName) {
         ua.updateChoice(modelName, optionsName, optionName);
     }
+
     public static void fix(FixAuto fa, int errNo) {
         fa.fix(errNo);
     }

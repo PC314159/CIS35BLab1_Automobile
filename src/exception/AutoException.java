@@ -12,6 +12,7 @@ public class AutoException extends Exception {
         super();
         this.errno = errno;
         this.msg = message;
+        log();
     }
 
     public void log() {

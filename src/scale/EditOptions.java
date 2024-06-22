@@ -1,17 +1,19 @@
 package scale;
 
+import adapter.EditThread;
+import adapter.UpdateAuto;
 import model.Automobile;
 import java.util.LinkedHashMap;
 
 public class EditOptions extends Thread {
-    private LinkedHashMap<String, Automobile> automobileLinkedHashMap;
+    private EditThread et;
     private String modelName;
     private String optionsName;
     private String optionName;
     private int newOptionPrice;
 
-    public EditOptions(LinkedHashMap<String, Automobile> automobileLinkedHashMap, String modelName, String optionsName, String optionName, int newOptionPrice) {
-        this.automobileLinkedHashMap = automobileLinkedHashMap;
+    public EditOptions(EditThread et, String modelName, String optionsName, String optionName, int newOptionPrice) {
+        this.et = et;
         this.modelName = modelName;
         this.optionsName = optionsName;
         this.optionName = optionName;
@@ -21,15 +23,10 @@ public class EditOptions extends Thread {
     // The main run method that will be executed by the thread
     @Override
     public void run() {
-        editOption();
+        editOptionPrice();
     }
 
-    private void editOption() {
-        synchronized (automobileLinkedHashMap) {
-            Automobile auto = automobileLinkedHashMap.get(modelName);
-            if (auto != null) {
-                auto.updateOptionPrice(optionsName, optionName, newOptionPrice);
-            }
-        }
+    private synchronized void editOptionPrice() {
+        et.updateOptionPrice(modelName, optionsName, optionName, newOptionPrice);
     }
 }

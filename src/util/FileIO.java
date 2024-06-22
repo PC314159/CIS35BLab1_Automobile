@@ -40,35 +40,33 @@ public class FileIO {
         return null;
     }
 
-    public static Automobile parsePropertiesFile(String filename) {
-        Properties props = new Properties();
-        try (FileInputStream in = new FileInputStream(filename)) {
-            props.load(in);
-            String carName = props.getProperty("CarName");
-            String carMake = props.getProperty("CarMake");
-            String carModel = props.getProperty("CarModel");
-            int basePrice = Integer.parseInt(props.getProperty("BasePrice"));
-            Automobile auto = new Automobile(carName,carMake, carModel, basePrice);
+    public Automobile parsePropertiesFile(Properties props) {
+        String carName = props.getProperty("CarName");
+        String carMake = props.getProperty("CarMake");
+        String carModel = props.getProperty("CarModel");
+        int basePrice = Integer.parseInt(props.getProperty("BasePrice"));
 
-            for (String key : props.stringPropertyNames()) {
-                if (key.startsWith("OptionsName")) {
-                    String optionSetName = props.getProperty(key);
-                    auto.addOptions(optionSetName);
+        Automobile auto = new Automobile(carName, carMake, carModel, basePrice);
 
-                    int optionIndex = 1;
-                    while (props.getProperty("OptionName" + key.substring(6) + optionIndex) != null) {
-                        String optionName = props.getProperty("OptionName" + key.substring(6) + optionIndex);
-                        int optionPrice = Integer.parseInt(props.getProperty("OptionPrice" + key.substring(6) + optionIndex));
-                        auto.addOption(optionSetName, optionName, optionPrice);
-                        optionIndex++;
-                    }
+        for (String key : props.stringPropertyNames()) {
+            if (key.startsWith("OptionSet")) {
+                String optionSetName = props.getProperty(key);
+                auto.addOptions(optionSetName);
+
+                // Add options to OptionSet
+                int optionIndex = 1;
+                while (true) {
+                    String optionValueKey = "OptionValue" + key.substring(9) + optionIndex;
+                    String optionPriceKey = "OptionPrice" + key.substring(9) + optionIndex;
+                    String optionName = props.getProperty(optionValueKey);
+                    int optionPrice = Integer.parseInt(props.getProperty(optionPriceKey));
+
+                    auto.addOption(optionSetName, optionName, optionPrice);
+                    optionIndex++;
                 }
             }
-            return auto;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
         }
-    }
 
+        return auto;
+    }
 }

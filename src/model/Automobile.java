@@ -153,6 +153,22 @@ public class Automobile implements Serializable {
         }
     }
 
+    public synchronized ArrayList<String> getOptionsNames() {
+        ArrayList<String> names = new ArrayList<String>();
+        for (OptionSet options: optset) {
+            names.add(options.getName());
+        }
+        return names;
+    }
+
+    public synchronized ArrayList<String> getOptionNames(String optionsName) {
+        for (OptionSet options : optset) {
+            if (options.getName().equals(optionsName)) {
+                return options.getOptionNames();
+            }
+        }
+        return null;
+    }
     public synchronized String getOptionChoiceName(String optionsName) {
         for (OptionSet options : optset) {
             if (options.getName().equals(optionsName)) {

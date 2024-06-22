@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public interface AutoServer {
-    void addAutomobile(String fileName);
+    void BuildAuto(StringBuffer sb);
     ArrayList<String> getAvailableModels();
     Automobile getAutomobile(String modelName);
 }
