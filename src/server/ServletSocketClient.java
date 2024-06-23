@@ -34,13 +34,36 @@ public class ServletSocketClient extends Thread {
             System.err.println("Error creating server object streams ... ");
             System.exit(1);
         }
-
-
         protocol = new BuildCarModelOptions(true);
-        protocol.setRequest(1);
-        handleInput(1);
-        sendOutput(protocol.setRequest(2)); //models
-        handleInput(2);
+
+        String menu = "\nEnter 1 to upload a new Automobile\n"
+                + "Enter 2 to configure an Automobile\n"
+                + "Enter 0 to terminate connection\n";
+        try {
+            do {
+                sendOutput(menu);
+
+                int request = Integer.parseInt(in.readObject().toString());
+                if (request == 0)
+                    break;
+
+                sendOutput(protocol.setRequest(request));
+
+                if (request >= 1 && request <= 2)
+                    handleInput(request);
+
+            } while (in.readObject() != null);
+
+            in.close();
+        }
+        catch (IOException e) {
+            System.err.println("Error handling client connection ... ");
+            System.exit(1);
+        }
+        catch (ClassNotFoundException e) {
+            System.err.println("Error in uploaded object, object may be corrupted ... ");
+            System.exit(1);
+        }
     }
 
     public void sendOutput(Object obj) {
@@ -60,10 +83,9 @@ public class ServletSocketClient extends Thread {
         try {
             switch (request) {
                 case 1: //Client request to build Automobile
-                    fromClient = new StringBuffer("C:\\Users\\S9902\\Desktop\\hw\\Automobile2\\LexusRx400.txt");
-                    //Change directory as needed
+                    fromClient = in.readObject();
                     toClient = protocol.processRequest(fromClient);
-//                    sendOutput(toClient);
+                    sendOutput(toClient);
                     break;
 
                 case 2: //Client request to configure Automobile

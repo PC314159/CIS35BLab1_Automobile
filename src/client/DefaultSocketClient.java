@@ -62,7 +62,7 @@ public class DefaultSocketClient extends Thread{
 				if (toServer.toString().contains(".txt")) {
 					toServer = clientFTP.loadTextFile(toServer.toString());
 				}
-				System.out.println("toserver"+toServer.toString());
+//				System.out.println("toserver"+toServer.toString());
 				sendOutput(toServer);
 				System.out.println("");
 

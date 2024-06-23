@@ -59,8 +59,8 @@ public class AutomobileFileReader {
 
     public Automobile createAutomobileStringBuffer(StringBuffer sb) {
         try {
-            FileReader file = new FileReader(sb.toString());
-            BufferedReader buff = new BufferedReader(file);
+            StringReader stringReader = new StringReader(sb.toString());
+            BufferedReader buff = new BufferedReader(stringReader);
             String autoName = buff.readLine();
             try {
                 if (autoName.isEmpty()) {
