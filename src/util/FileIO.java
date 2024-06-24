@@ -28,16 +28,17 @@ public class FileIO {
     }
 
     public static Automobile deserializeAuto(String fileName) {
+        Automobile auto = null;
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName));
-            Automobile auto = (Automobile)ois.readObject();
+            auto = (Automobile)ois.readObject();
             ois.close();
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, ex.toString());
             System.exit(1);
         }
 
-        return null;
+        return auto;
     }
 
     public Automobile parsePropertiesFile(Properties props) {
